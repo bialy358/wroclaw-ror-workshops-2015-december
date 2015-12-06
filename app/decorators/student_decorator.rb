@@ -1,18 +1,16 @@
 class StudentDecorator < BaseDecorator
-
+  include ActionView::Helpers::NumberHelper
   def full_name
     "#{first_name} #{last_name}"
   end
 
   def avg_notes(subject_item)
-    student_note = SubjectItemNote.where(subject_item_id: subject_item.id, student_id: subject_item.student_id)
-    if student_note.nil?
-      0
+
+    student_note = SubjectItemNote.where(subject_item_id: subject_item.id, student_id: student)
+    if student_note.empty?
+      "0.00"
     else
-      student_note.average(:value)
+      number_with_precision(student_note.average(:value), precision: 2)
     end
   end
 end
-
-
-

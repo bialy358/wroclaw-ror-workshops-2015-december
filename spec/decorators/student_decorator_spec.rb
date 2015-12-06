@@ -7,6 +7,7 @@ describe StudentDecorator do
   let(:second_subject_item) { create :subject_item }
   let!(:note_1) { create :subject_item_note, value: 5, student: student, subject_item: second_subject_item }
   let!(:note_2) { create :subject_item_note, value: 4, student: student, subject_item: second_subject_item }
+  let(:student_birthdate) {create :student, first_name: 'John', last_name: 'Smith', birthdate: '1990-10-11'}
 
   describe "#full_name" do
     subject { student.decorate.full_name }
@@ -29,5 +30,21 @@ describe StudentDecorator do
         is_expected.to eq '4.50'
       end
     end
+  end
+
+  describe "#borndate" do
+    describe "when student hasn't birthdate assigned" do
+      subject {student.decorate.borndate}
+      it "is expected to retun - "do
+         is_expected.to eq '-'
+      end
+    end
+    describe "when student has birthdate assigned" do
+      subject {student_birthdate.decorate.borndate}
+      it "is expected to return 1990-10-11" do
+         is_expected.to eq '1990-10_11'
+      end
+    end
+
   end
 end

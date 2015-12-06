@@ -2,12 +2,7 @@ language: ruby
 rvm:
   - 2.2.3
 before_script:
+  - cp config/database.yml.sample config/database.yml
   - psql -c 'create database workshops_test;' -U workshops
-services:
-  - postgresql
 addons:
   postgresql: '9.3'
-test:
-  adapter: postgresql
-  database: travis_ci_test
-  username: workshops

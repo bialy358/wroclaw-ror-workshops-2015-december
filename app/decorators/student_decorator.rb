@@ -4,20 +4,20 @@ class StudentDecorator < BaseDecorator
     "#{first_name} #{last_name}"
   end
 
-  def borndate(student)
-    if student.birthdate.present?
-    student.birthdate.strftime("%Y-%m_%d")
+  def borndate
+    if birthdate.present?
+    birthdate.strftime("%Y-%m_%d")
     else
       "-"
     end
   end
   def avg_notes(subject_item)
 
-    student_note = SubjectItemNote.where(subject_item_id: subject_item.id, student_id: student)
-    if student_note.empty?
+    student_avg_note = subject_item_notes.where(subject_item_id: subject_item)
+    if student_avg_note.empty?
       "0.00"
     else
-      number_with_precision(student_note.average(:value), precision: 2)
+      number_with_precision(student_avg_note.average(:value), precision: 2)
     end
   end
 end

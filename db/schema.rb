@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150719115626) do
+ActiveRecord::Schema.define(version: 20151206105958) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 20150719115626) do
     t.string   "last_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.date     "birthdate"
   end
 
   create_table "subject_item_notes", force: :cascade do |t|
@@ -53,7 +54,6 @@ ActiveRecord::Schema.define(version: 20150719115626) do
 
   add_index "subject_items", ["teacher_id"], name: "index_subject_items_on_teacher_id", using: :btree
 
-
   create_table "teachers", force: :cascade do |t|
     t.string   "first_name"
     t.string   "last_name"
@@ -63,8 +63,8 @@ ActiveRecord::Schema.define(version: 20150719115626) do
   end
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                  null: false, default: ""
-    t.string   "encrypted_password",     null: false, default: ""
+    t.string   "email",                  default: "", null: false
+    t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
